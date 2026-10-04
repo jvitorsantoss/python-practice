@@ -16,7 +16,19 @@ def buscar(url):
         print(error)
 
 
+def parsear_anuncios(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    anuncios = []
+    for card in soup.find_all('a', class_='card'):
+        anuncios.append({
+            'titulo': card.find('div', class_='header').get_text(strip=True),
+            'preco': card.find('div', class_='extra').get_text(strip=True),
+            'link': card['href'],
+        })
+    return anuncios
+
+
 resposta = buscar(URL_AUTOMOVEIS) #tira a # para rodar
 if resposta:
-    soup = BeautifulSoup(resposta, 'html.parser')
-    print(soup.prettify())
+    for anuncio in parsear_anuncios(resposta):
+        print(anuncio)
