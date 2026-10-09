@@ -73,6 +73,18 @@ def descobrir_telefones():
                         print("Telefone encontrado: ", telefone)
                         TELEFONES.append(telefone)
 
+
+def salvar_resultados(telefone):
+    try:
+        with open("telefones.csv", "a") as arquivo:
+            str_telefone = str(telefone)
+            string_telefone = f"+55 ({telefone[0]}) {telefone[1]}-{telefone[2]}\n"
+            arquivo.write(string_telefone)
+    except Exception as error:
+        print(error)
+        print("Erro ao salvar arquivo")
+
+
 if __name__ == "__main__":
     resposta_busca = requisicao(URL_AUTOMOVEIS)
     if resposta_busca:
