@@ -48,10 +48,6 @@ def encontrar_telefone(soup):
     except:
         print("Erro ao encontrar descricao")
         return
-
-    print(descricao)
-
-
     regex = re.findall(r"\(?(\d{2})\)?[ .-]*(\d{4,5})[ .-]*(\d{4})", descricao)
     if regex:
         return regex
