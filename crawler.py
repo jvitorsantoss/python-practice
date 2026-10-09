@@ -59,18 +59,19 @@ def encontrar_telefone(soup):
 def descobrir_telefones():
     while True:
         try:
-            link_anuncio = LINKS.pop[0]
+            link_anuncio = LINKS.pop(0)
         except:
             return
-            resposta_anuncio = requisicao(DOMINIO + link_anuncio)
+        resposta_anuncio = requisicao(DOMINIO + link_anuncio)
 
-            if resposta_anuncio:
-                soup_anuncio = parsing(resposta_anuncio)
-                if soup_anuncio:
-                    telefones = encontrar_telefone(soup_anuncio)
-                    if telefones:
-                        for telefone in telefones:
-                            TELEFONES.append(telefone)
+        if resposta_anuncio:
+            soup_anuncio = parsing(resposta_anuncio)
+            if soup_anuncio:
+                telefones = encontrar_telefone(soup_anuncio)
+                if telefones:
+                    for telefone in telefones:
+                        print("Telefone encontrado: ", telefone)
+                        TELEFONES.append(telefone)
 
 if __name__ == "__main__":
     resposta_busca = requisicao(URL_AUTOMOVEIS)
@@ -81,12 +82,18 @@ if __name__ == "__main__":
 
             threading_1 = threading.Thread(target=descobrir_telefones)
             threading_2 = threading.Thread(target=descobrir_telefones)
+            threading_3 = threading.Thread(target=descobrir_telefones)
+            threading_4 = threading.Thread(target=descobrir_telefones)
 
             threading_1.start()
             threading_2.start()
+            threading_3.start()
+            threading_4.start()
 
             threading_1.join()
             threading_2.join()
+            threading_3.join()
+            threading_4.join()
 
             print(TELEFONES)
 
